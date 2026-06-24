@@ -1,13 +1,25 @@
 import { useEffect, useState } from 'react';
+
 import {
   getApprovedTransactions,
   simulateTransaction,
 } from './services/transactionService';
 
+import Header from './components/Header/Header';
+import Hero from './components/Hero/Hero';
+import TransactionForm from './components/TransactionForm/TransactionForm';
+import TransactionResult from './components/TransactionResult/TransactionResult';
+import ApprovedTransactionsList from './components/ApprovedTransactionsList/ApprovedTransactionsList';
+
+import './styles/global.css';
+
 function App() {
   const [region, setRegion] = useState('Israel');
   const [approvedTransactions, setApprovedTransactions] = useState([]);
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [hour, setHour] = useState('20');
+  const [minute, setMinute] = useState('00');
 
   async function loadApprovedTransactions() {
     try {
@@ -24,80 +36,56 @@ function App() {
 
   async function handleSimulation() {
     try {
+      setLoading(true);
+      const customDate = new Date();
+
+      customDate.setHours(Number(hour));
+      customDate.setMinutes(Number(minute));
       const response = await simulateTransaction({
         region,
-        submittedUtc: new Date().toISOString(),
+        submittedUtc: customDate.toISOString(),
       });
 
       setResult(response);
 
-      loadApprovedTransactions();
+      await loadApprovedTransactions();
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <div style={{ padding: '40px' }}>
-      <h1>Shva Transaction Simulator</h1>
+    <div className="app">
+      <Header />
 
-      <br />
+      <main className="main-container">
+        <section className="hero-section">
+          <div className="left-side">
+            <TransactionForm
+              selectedRegion={region}
+              setSelectedRegion={setRegion}
+              onSimulate={handleSimulation}
+              loading={loading}
+              hour={hour}
+              setHour={setHour}
+              minute={minute}
+              setMinute={setMinute}
+            />
+          </div>
 
-      <select
-        value={region}
-        onChange={(e) => setRegion(e.target.value)}
-      >
-        <option value="Israel">Israel</option>
-        <option value="France">France</option>
-        <option value="USA">USA</option>
-        <option value="Japan">Japan</option>
-      </select>
+          <div className="right-side">
+            <Hero />
 
-      <button
-        onClick={handleSimulation}
-        style={{
-          marginLeft: '10px',
-          padding: '8px 16px',
-        }}
-      >
-        Simulate Transaction
-      </button>
+            <TransactionResult result={result} />
+          </div>
+        </section>
 
-      {result && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Status: {result.status}</h3>
-
-          <p>
-            Local Time:
-            {' '}
-            {new Date(result.localTime).toLocaleString()}
-          </p>
-        </div>
-      )}
-
-      <hr style={{ margin: '30px 0' }} />
-
-      <h2>Approved Transactions</h2>
-
-      {approvedTransactions.map((transaction) => (
-        <div
-          key={transaction.id}
-          style={{
-            padding: '12px',
-            marginBottom: '10px',
-            background: 'white',
-            borderRadius: '8px',
-          }}
-        >
-          <p>Region: {transaction.region}</p>
-          <p>Status: {transaction.status}</p>
-          <p>
-            Local Time:
-            {' '}
-            {new Date(transaction.localTime).toLocaleString()}
-          </p>
-        </div>
-      ))}
+        <ApprovedTransactionsList
+          transactions={approvedTransactions}
+        />
+      </main>
     </div>
   );
 }

@@ -5,6 +5,38 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f7fb;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1f1f1f;
+}
+
+.app {
+    min-height: 100vh;
+}
+
+.main-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+    padding-top: 40px;
+}
+
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 80px;
+    align-items: center;
+}
+
+.left-side {
+    flex: 1;
+}
+
+.right-side {
+    flex: 1;
+}
+
+@media (max-width: 900px) {
+    .hero-section {
+        flex-direction: column;
+    }
 }
