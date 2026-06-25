@@ -223,3 +223,82 @@
 .app.rtl .form-footer {
     justify-content: left;
 }
+
+.search-box {
+    position: relative;
+    width: min(100%, 320px);
+}
+
+.search-input {
+    width: 100%;
+    height: 72px;
+
+    border: 3px solid #6b46c1;
+    border-radius: 12px;
+
+    background: white;
+
+    padding: 0 50px 0 20px;
+
+    font-size: 1.2rem;
+
+    outline: none;
+}
+
+.clear-btn {
+    position: absolute;
+
+    top: 50%;
+    right: 16px;
+
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    color: #555;
+}
+
+.dropdown {
+    position: absolute;
+
+    top: 80px;
+    left: 0;
+
+    width: 100%;
+
+    background: #f2ebfb;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08);
+
+    z-index: 20;
+}
+
+.dropdown-item {
+    padding: 18px 20px;
+
+    cursor: pointer;
+
+    font-size: 1.1rem;
+
+    transition: 0.2s;
+}
+
+.dropdown-item:hover {
+    background: #e3d6fa;
+}
+
+.dropdown-empty {
+    padding: 18px 20px;
+
+    color: #777;
+}
