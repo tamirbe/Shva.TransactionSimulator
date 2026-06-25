@@ -27,6 +27,8 @@ public class TransactionsController : ControllerBase
             "France" => "Romance Standard Time",
             "USA" => "Eastern Standard Time",
             "Japan" => "Tokyo Standard Time",
+            "Cyprus" => "E. Europe Standard Time",
+            "Italy" => "W. Europe Standard Time",
             _ => null
         };
 
