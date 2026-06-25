@@ -10,7 +10,7 @@ services:
 
   backend:
     build:
-      context: ./Shva.TransactionSimulatorApi
+      context: ./Shva.TransactionSimulator.Api
     container_name: shva-api
     ports:
       - "8080:8080"
