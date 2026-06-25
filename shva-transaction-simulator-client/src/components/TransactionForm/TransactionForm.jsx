@@ -46,32 +46,33 @@ function TransactionForm({
                 <h3>Enter time</h3>
 
                 <div className="time-display">
-                    <input
-                        type="number"
-                        min="0"
-                        max="23"
-                        value={hour}
-                        onChange={handleHourChange}
-                        className="time-input"
-                    />
+                    <div className="time-input-group">
+                        <input
+                            type="number"
+                            min="0"
+                            max="23"
+                            value={hour}
+                            onChange={handleHourChange}
+                            className="time-input"
+                        />
+                        <span className="time-input-label">Hour</span>
+                    </div>
 
                     <div className="dots">
                         :
                     </div>
 
-                    <input
-                        type="number"
-                        min="0"
-                        max="59"
-                        value={minute}
-                        onChange={handleMinuteChange}
-                        className="time-input inactive"
-                    />
-                </div>
-
-                <div className="time-labels">
-                    <span>Hour</span>
-                    <span>Minute</span>
+                    <div className="time-input-group">
+                        <input
+                            type="number"
+                            min="0"
+                            max="59"
+                            value={minute}
+                            onChange={handleMinuteChange}
+                            className="time-input inactive"
+                        />
+                        <span className="time-input-label">Minute</span>
+                    </div>
                 </div>
 
                 <div className="form-footer">

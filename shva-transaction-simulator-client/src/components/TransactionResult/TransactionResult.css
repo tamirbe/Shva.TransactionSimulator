@@ -1,0 +1,39 @@
+.transaction-result-card {
+    margin-top: 20px;
+    padding: 20px 24px;
+    border-radius: 20px;
+    background: #f7f2ff;
+    border: 1px solid #e7dcfb;
+    box-shadow: 0 10px 24px rgba(82, 58, 132, 0.08);
+    overflow-wrap: anywhere;
+}
+
+.transaction-result-card h3 {
+    font-size: 1.125rem;
+    color: #46325f;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.transaction-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #6b46c1;
+    color: white;
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.transaction-result-card p {
+    font-size: 0.95rem;
+    color: #5a4a6b;
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .transaction-result-card {
+        padding: 18px 20px;
+    }
+}

@@ -73,12 +73,11 @@ function App() {
               minute={minute}
               setMinute={setMinute}
             />
+            <TransactionResult result={result} />
           </div>
 
           <div className="right-side">
             <Hero />
-
-            <TransactionResult result={result} />
           </div>
         </section>
 

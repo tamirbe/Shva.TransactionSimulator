@@ -1,62 +1,121 @@
 .hero {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 24px;
+    width: 100%;
 }
 
 .hero-text-box {
-    gap: 19px;
+    gap: 14px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .hero-badge {
     font-family: 'rubik', sans-serif;
     width: fit-content;
-    padding: 4px 16px;
-    border-radius: 14px;
+    padding: 6px 16px;
+    border-radius: 999px;
     border: 1px solid #c6c6c6;
     font-weight: 700;
-    font-size: 18px;
+    font-size: clamp(0.9rem, 1.4vw, 1.125rem);
     line-height: 150%;
-    letter-spacing: 0%;
-    text-align: center;
-    vertical-align: bottom;
     color: #363636;
-    background-color: #F0F0F066;
+    background-color: rgba(240, 240, 240, 0.8);
 }
 
 .hero-subtitle {
     font-family: 'rubik', sans-serif;
     font-weight: 400;
-    font-size: 24px;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
     line-height: 150%;
-    letter-spacing: 0%;
     text-align: center;
-    vertical-align: bottom;
     color: #363636;
-    margin-bottom: 30px;
+    margin-bottom: 8px;
 }
 
 .hero-image-placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 12px;
+    flex-wrap: nowrap;
 }
 
 .hero-image {
-    height: 261px;
-    width: 550px;
+    height: auto;
+    width: min(100%, 560px);
+    max-width: 100%;
     border-radius: 24px;
-    @include fluid-type(margin-left, 1024px, 1920px, 30px, 50px);
+    object-fit: cover;
 }
 
 .mobile-image {
-    width: 128.33163159819387px;
-    height: 237.15151437327145px;
+    width: min(100%, 128px);
+    max-width: 100%;
+    height: auto;
     opacity: 1;
     border-radius: 24px;
     transform: rotate(10deg);
+}
+
+@media (max-width: 1185px) and (min-width: 901px) {
+    .hero-image {
+        width: min(100%, 370px);
+    }
+
+    .mobile-image {
+        width: min(100%, 104px);
+    }
+}
+
+@media (max-width: 900px) {
+    .hero {
+        gap: 20px;
+    }
+
+    .hero-image-placeholder {
+        margin-top: 8px;
+        flex-wrap: nowrap;
+    }
+}
+
+@media (max-width: 750px) {
+    .hero-subtitle {
+        margin-bottom: 0;
+    }
+
+    .hero-image-placeholder {
+        flex-wrap: nowrap;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-width: 285px;
+    }
+
+    .mobile-image {
+        width: 76px;
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 499px) {
+    .hero-image {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .hero-image {
+        width: min(100%, 680px);
+    }
+
+    .mobile-image {
+        width: min(100%, 156px);
+    }
 }
