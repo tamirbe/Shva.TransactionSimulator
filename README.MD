@@ -1,8 +1,23 @@
 # Shva Transaction Approval Simulator
 
-A full-stack transaction approval simulator built with **React**, **.NET Web API**, and **MSSQL** as part of the Shva Full-stack Developer Interview Task.
+A full-stack transaction approval simulator built with **React**, **ASP.NET Core Web API**, and **Microsoft SQL Server** as part of the **Shva Full-stack Developer Interview Task**.
 
-The application simulates transaction approvals based on local banking hours in different regions around the world.
+The application simulates financial transaction approvals based on banking hours in different regions around the world.
+
+---
+
+# Project Overview
+
+The system allows users to:
+
+* Select a region
+* Enter a transaction time
+* Simulate a transaction approval request
+* Determine whether the transaction is approved or rejected
+* Store transactions in MSSQL
+* Display approved transactions in a responsive carousel UI
+
+The approval decision is based on the local banking hours of the selected region.
 
 ---
 
@@ -10,34 +25,43 @@ The application simulates transaction approvals based on local banking hours in 
 
 ## Frontend
 
-* Modern React application
-* Fully responsive design
-* Figma-based UI implementation
+* React + Vite application
+* Responsive design (Desktop / Tablet / Mobile)
+* Figma-inspired UI implementation
+* Region selector with search support
 * Transaction simulation form
 * Approved transactions carousel
-* Loading and error states
+* Loading states
+* Empty states
+* Error handling
+* Localization support (English / Hebrew)
+* RTL / LTR layout support
 * Component-based architecture
 
 ## Backend
 
-* RESTful .NET Web API
-* Transaction approval business logic
+* RESTful ASP.NET Core Web API
+* Clean scalable architecture
+* Business logic for transaction approval
 * Time zone conversion by selected region
-* MSSQL database integration
-* Entity Framework Core
+* Entity Framework Core integration
+* MSSQL persistence
 
 ## Database
 
-* Stores all transactions
+* Stores all submitted transactions
 * Retrieves approved transactions only
+* SQL Server containerized using Docker
 
 ---
 
 # Business Logic
 
-A transaction is considered **Approved** only if the selected local time falls between:
+A transaction is considered **Approved** only if the submitted local time falls between:
 
+```txt id="xjfg1s"
 08:00 - 18:00
+```
 
 according to the selected region's local time zone.
 
@@ -48,7 +72,11 @@ Supported regions:
 * USA
 * Japan
 
-Otherwise, the transaction is marked as **Rejected**.
+Otherwise, the transaction is marked as:
+
+```txt id="ld0m91"
+Rejected
+```
 
 ---
 
@@ -58,7 +86,8 @@ Otherwise, the transaction is marked as **Rejected**.
 
 * React
 * Vite
-* CSS Modules / CSS
+* CSS
+* Responsive Design
 
 ## Backend
 
@@ -70,29 +99,80 @@ Otherwise, the transaction is marked as **Rejected**.
 
 * Microsoft SQL Server
 
+## DevOps
+
+* Docker
+* Docker Compose
+
 ---
 
 # Project Structure
 
-```txt
+```txt id="zjlwmk"
 Shva.TransactionSimulator/
 │
 ├── Shva.TransactionSimulator.Api
 │
 ├── shva-transaction-simulator-client
 │
+├── docker-compose.yml
+│
 └── README.md
 ```
 
 ---
 
-# Backend Setup
+# Running the Project with Docker
+
+## Requirements
+
+Make sure the following are installed:
+
+* Docker Desktop
+* .NET SDK
+* Node.js
+
+---
+
+## Run the entire application
+
+From the root folder run:
+
+```bash id="6hpf8m"
+docker compose up --build
+```
+
+This command starts:
+
+* SQL Server
+* Backend API
+* Frontend client
+
+---
+
+# Application URLs
+
+## Frontend
+
+```txt id="dy5z7s"
+http://localhost:5173
+```
+
+## Swagger API
+
+```txt id="c7q9mf"
+http://localhost:8080/swagger
+```
+
+---
+
+# Backend Setup (Without Docker)
 
 ## 1. Open the solution
 
 Open:
 
-```txt
+```txt id="jtx0mf"
 Shva.TransactionSimulator.sln
 ```
 
@@ -102,19 +182,17 @@ using Visual Studio.
 
 ## 2. Configure SQL Server
 
-Make sure SQL Server is installed and running.
+Update the connection string inside:
 
-Update the connection string in:
-
-```txt
+```txt id="u6rpnm"
 appsettings.json
 ```
 
 Example:
 
-```json
+```json id="7zqg2u"
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost;Database=ShvaTransactionSimulatorDb;Trusted_Connection=True;TrustServerCertificate=True;"
+  "DefaultConnection": "Server=localhost,1433;Database=ShvaTransactionSimulatorDb;User Id=sa;Password=YourStrong!Pass123;TrustServerCertificate=True;"
 }
 ```
 
@@ -122,45 +200,37 @@ Example:
 
 ## 3. Run Entity Framework Migration
 
-Open Package Manager Console:
+Install Entity Framework tool if needed:
 
-```powershell
-Update-Database
+```bash id="4n6m3x"
+dotnet tool install --global dotnet-ef
 ```
 
-This will create the database and tables automatically.
+Run migration:
+
+```bash id="4sqj2r"
+dotnet ef database update
+```
+
+This will automatically create the database and tables.
 
 ---
 
 ## 4. Run the Backend
 
-Press:
-
-```txt
-F5
-```
-
-or run:
-
-```powershell
+```bash id="q3zjlwm"
 dotnet run
 ```
 
 Swagger will open automatically.
 
-Example:
-
-```txt
-https://localhost:xxxx/swagger
-```
-
 ---
 
-# Frontend Setup
+# Frontend Setup (Without Docker)
 
 ## 1. Navigate to the client folder
 
-```powershell
+```bash id="5k4m7p"
 cd shva-transaction-simulator-client
 ```
 
@@ -168,7 +238,7 @@ cd shva-transaction-simulator-client
 
 ## 2. Install dependencies
 
-```powershell
+```bash id="7c5xna"
 npm install
 ```
 
@@ -176,13 +246,13 @@ npm install
 
 ## 3. Run the frontend
 
-```powershell
+```bash id="v3r8fa"
 npm run dev
 ```
 
 The application will run on:
 
-```txt
+```txt id="1dx8kv"
 http://localhost:5173
 ```
 
@@ -190,26 +260,26 @@ http://localhost:5173
 
 # API Endpoints
 
-## Simulate Transaction
+# Simulate Transaction
 
-### POST
+## POST
 
-```txt
+```txt id="h5r4kp"
 /api/transactions/simulate
 ```
 
-### Request Body
+## Request Body
 
-```json
+```json id="ykq0uz"
 {
   "region": "Japan",
   "submittedUtc": "2026-06-25T10:00:00Z"
 }
 ```
 
-### Response
+## Response
 
-```json
+```json id="2m0z6t"
 {
   "status": "Approved",
   "localTime": "2026-06-25T13:00:00"
@@ -218,11 +288,11 @@ http://localhost:5173
 
 ---
 
-## Get Approved Transactions
+# Get Approved Transactions
 
-### GET
+## GET
 
-```txt
+```txt id="mqwhpv"
 /api/transactions/approved
 ```
 
@@ -232,7 +302,7 @@ Returns all approved transactions from the database.
 
 # Responsive Design
 
-The application is fully responsive and supports:
+The application is fully responsive and optimized for:
 
 * Desktop
 * Tablet
@@ -240,15 +310,38 @@ The application is fully responsive and supports:
 
 ---
 
+# Localization
+
+The application supports:
+
+* English
+* Hebrew
+* RTL / LTR layout switching
+
+---
+
+# Docker Architecture
+
+The project uses Docker Compose to run:
+
+* Frontend container
+* Backend container
+* SQL Server container
+
+All services communicate together through Docker networking.
+
+---
+
 # Future Improvements
 
 Possible future enhancements:
 
-* Localization (ENG / Hebrew)
-* RTL support
-* Authentication
-* Docker Compose setup
-* Advanced transaction filtering
+* Authentication (Login / Signup)
+* Advanced filtering
+* Pagination
+* Unit tests
+* Integration tests
+* Role management
 
 ---
 
