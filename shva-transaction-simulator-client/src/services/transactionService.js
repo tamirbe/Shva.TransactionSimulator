@@ -1,4 +1,4 @@
-const API_URL = 'https://localhost:44396/api/Transactions';
+const API_URL = 'https://localhost:8080/api/Transactions';
 
 export async function simulateTransaction(data) {
     const response = await fetch(`${API_URL}/simulate`, {
