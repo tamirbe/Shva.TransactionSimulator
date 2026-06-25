@@ -2,6 +2,10 @@
     margin-top: clamp(48px, 8vw, 100px);
 }
 
+.app.rtl .approved-section {
+    direction: rtl;
+}
+
 .approved-section h2 {
     font-size: clamp(1.5rem, 3vw, 2.625rem);
     margin-bottom: 24px;
@@ -67,6 +71,14 @@
     transform: rotate(180deg);
 }
 
+.app.rtl .arrow-button.right {
+    transform: rotate(0deg);
+}
+
+.app.rtl .arrow-button:not(.right) {
+    transform: rotate(180deg);
+}
+
 @media (max-width: 1450px) and (min-width: 916px) {
     .transactions-wrapper {
         gap: 12px;
@@ -93,6 +105,14 @@
 
     .arrow-button {
         rotate: 90deg;
+    }
+
+    .app.rtl .arrow-button.right {
+        transform: rotate(180deg);
+    }
+
+    .app.rtl .arrow-button:not(.right) {
+        transform: rotate(0deg);
     }
 
     .approved-section h2 {

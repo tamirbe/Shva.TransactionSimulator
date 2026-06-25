@@ -20,6 +20,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [hour, setHour] = useState('20');
   const [minute, setMinute] = useState('00');
+  const [language, setLanguage] = useState('en');
 
   async function loadApprovedTransactions() {
     try {
@@ -56,9 +57,11 @@ function App() {
     }
   }
 
+  const isHebrew = language === 'he';
+
   return (
-    <div className="app">
-      <Header />
+    <div className={`app ${isHebrew ? 'rtl' : ''}`}>
+      <Header language={language} setLanguage={setLanguage} />
 
       <main className="main-container">
         <section className="hero-section">
@@ -72,17 +75,19 @@ function App() {
               setHour={setHour}
               minute={minute}
               setMinute={setMinute}
+              language={language}
             />
-            <TransactionResult result={result} />
+            <TransactionResult result={result} language={language} />
           </div>
 
           <div className="right-side">
-            <Hero />
+            <Hero language={language} />
           </div>
         </section>
 
         <ApprovedTransactionsList
           transactions={approvedTransactions}
+          language={language}
         />
       </main>
     </div>

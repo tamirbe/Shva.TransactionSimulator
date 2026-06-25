@@ -1,17 +1,19 @@
 import './TransactionResult.css';
 
-function TransactionResult({ result }) {
+function TransactionResult({ result, language }) {
     if (!result) return null;
+
+    const isHebrew = language === 'he';
 
     return (
         <section className="transaction-result-card" aria-live="polite">
             <h3>
-                Status:
+                {isHebrew ? 'סטטוס:' : 'Status:'}
                 <span className="transaction-status">{result.status}</span>
             </h3>
 
             <p>
-                Local Time:{' '}
+                {isHebrew ? 'שעה מקומית:' : 'Local Time:'}{' '}
                 {new Date(result.localTime).toLocaleString()}
             </p>
         </section>

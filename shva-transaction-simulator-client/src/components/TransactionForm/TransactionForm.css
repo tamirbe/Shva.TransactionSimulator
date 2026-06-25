@@ -6,6 +6,10 @@
     max-width: 460px;
 }
 
+.app.rtl .transaction-form-wrapper {
+    direction: rtl;
+}
+
 .search-box {
     position: relative;
     width: min(100%, 320px);
@@ -19,6 +23,11 @@
     padding: 0 8px;
     font-size: 14px;
     color: #6b46c1;
+}
+
+.app.rtl .search-box label {
+    left: auto;
+    right: 14px;
 }
 
 .search-box select {
@@ -80,6 +89,10 @@
     justify-content: flex-end;
     gap: 16px;
     flex-wrap: wrap;
+}
+
+.app.rtl .form-footer {
+    justify-content: flex-start;
 }
 
 .cancel-btn,
@@ -169,7 +182,7 @@
     }
 
     .time-card {
-        max-width: 80%;
+        max-width: 100%;
     }
 }
 
@@ -204,4 +217,9 @@
     .form-footer {
         justify-content: right;
     }
+
+}
+
+.app.rtl .form-footer {
+    justify-content: left;
 }

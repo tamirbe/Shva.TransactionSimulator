@@ -14,6 +14,10 @@ body {
     min-height: 100vh;
 }
 
+.app.rtl {
+    direction: rtl;
+}
+
 .main-container {
     width: min(92%, 1400px);
     margin: 0 auto;
@@ -25,6 +29,10 @@ body {
     justify-content: space-between;
     gap: clamp(32px, 5vw, 80px);
     align-items: center;
+}
+
+.app.rtl .hero-section {
+    direction: rtl;
 }
 
 .left-side,

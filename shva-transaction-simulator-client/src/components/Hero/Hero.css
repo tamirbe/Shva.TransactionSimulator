@@ -14,6 +14,10 @@
     text-align: center;
 }
 
+.app.rtl .hero-text-box {
+    direction: rtl;
+}
+
 .hero-badge {
     font-family: 'rubik', sans-serif;
     width: fit-content;

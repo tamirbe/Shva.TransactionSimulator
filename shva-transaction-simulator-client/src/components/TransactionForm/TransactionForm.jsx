@@ -9,6 +9,7 @@ function TransactionForm({
     setHour,
     minute,
     setMinute,
+    language,
 }) {
     function handleHourChange(e) {
         let value = e.target.value;
@@ -26,10 +27,12 @@ function TransactionForm({
         setMinute(value);
     }
 
+    const isHebrew = language === 'he';
+
     return (
         <div className="transaction-form-wrapper">
             <div className="search-box">
-                <label>Region</label>
+                <label>{isHebrew ? 'אזור' : 'Region'}</label>
 
                 <select
                     value={selectedRegion}
@@ -43,41 +46,75 @@ function TransactionForm({
             </div>
 
             <div className="time-card">
-                <h3>Enter time</h3>
+                <h3>{isHebrew ? 'הזן שעה' : 'Enter time'}</h3>
 
                 <div className="time-display">
-                    <div className="time-input-group">
-                        <input
-                            type="number"
-                            min="0"
-                            max="23"
-                            value={hour}
-                            onChange={handleHourChange}
-                            className="time-input"
-                        />
-                        <span className="time-input-label">Hour</span>
-                    </div>
+                    {isHebrew ? (
+                        <>
+                            <div className="time-input-group">
+                                <input
+                                    type="number"
+                                    min="0"
+                                    max="59"
+                                    value={minute}
+                                    onChange={handleMinuteChange}
+                                    className="time-input inactive"
+                                />
+                                <span className="time-input-label">{isHebrew ? 'דקה' : 'Minute'}</span>
+                            </div>
 
-                    <div className="dots">
-                        :
-                    </div>
+                            <div className="dots">
+                                :
+                            </div>
 
-                    <div className="time-input-group">
-                        <input
-                            type="number"
-                            min="0"
-                            max="59"
-                            value={minute}
-                            onChange={handleMinuteChange}
-                            className="time-input inactive"
-                        />
-                        <span className="time-input-label">Minute</span>
-                    </div>
+                            <div className="time-input-group">
+                                <input
+                                    type="number"
+                                    min="0"
+                                    max="23"
+                                    value={hour}
+                                    onChange={handleHourChange}
+                                    className="time-input"
+                                />
+                                <span className="time-input-label">{isHebrew ? 'שעה' : 'Hour'}</span>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="time-input-group">
+                                <input
+                                    type="number"
+                                    min="0"
+                                    max="23"
+                                    value={hour}
+                                    onChange={handleHourChange}
+                                    className="time-input"
+                                />
+                                <span className="time-input-label">{isHebrew ? 'שעה' : 'Hour'}</span>
+                            </div>
+
+                            <div className="dots">
+                                :
+                            </div>
+
+                            <div className="time-input-group">
+                                <input
+                                    type="number"
+                                    min="0"
+                                    max="59"
+                                    value={minute}
+                                    onChange={handleMinuteChange}
+                                    className="time-input inactive"
+                                />
+                                <span className="time-input-label">{isHebrew ? 'דקה' : 'Minute'}</span>
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 <div className="form-footer">
                     <button className="cancel-btn">
-                        Cancel
+                        {isHebrew ? 'ביטול' : 'Cancel'}
                     </button>
 
                     <button
@@ -86,8 +123,8 @@ function TransactionForm({
                         disabled={loading}
                     >
                         {loading
-                            ? 'Loading...'
-                            : 'Ok'}
+                            ? (isHebrew ? 'טוען...' : 'Loading...')
+                            : (isHebrew ? 'אישור' : 'Ok')}
                     </button>
                 </div>
             </div>

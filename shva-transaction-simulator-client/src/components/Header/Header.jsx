@@ -1,7 +1,7 @@
 import './Header.css';
 import logo from '../../assets/logos/shva-logo.png';
 
-function Header() {
+function Header({ language, setLanguage }) {
     return (
         <header className="header">
             <div className="logo-placeholder">
@@ -9,10 +9,18 @@ function Header() {
             </div>
 
             <div className="language-buttons">
-                <button>ENG</button>
+                <button
+                    className={language === 'en' ? 'active' : ''}
+                    onClick={() => setLanguage('en')}
+                >
+                    ENG
+                </button>
 
-                <button className="active">
-                    Hebrew
+                <button
+                    className={language === 'he' ? 'active' : ''}
+                    onClick={() => setLanguage('he')}
+                >
+                    עברית
                 </button>
             </div>
         </header>

@@ -6,6 +6,7 @@ import arrow from '../../assets/icons/arrow.svg';
 
 function ApprovedTransactionsList({
     transactions,
+    language,
 }) {
     const [currentIndex, setCurrentIndex] =
         useState(0);
@@ -31,9 +32,11 @@ function ApprovedTransactionsList({
         }
     }
 
+    const isHebrew = language === 'he';
+
     return (
         <section className="approved-section">
-            <h2>Approved Transactions</h2>
+            <h2>{isHebrew ? 'עסקאות מאושרות' : 'Approved Transactions'}</h2>
 
             <div className="transactions-wrapper">
                 <button
@@ -63,7 +66,7 @@ function ApprovedTransactionsList({
                                 </h3>
 
                                 <p>
-                                    Time Zone:
+                                    {isHebrew ? 'אזור זמן:' : 'Time Zone:'}
                                     {' '}
                                     {transaction.region}
                                 </p>
