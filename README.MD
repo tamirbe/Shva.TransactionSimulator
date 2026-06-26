@@ -1,8 +1,23 @@
 # Shva Transaction Approval Simulator
 
-A full-stack transaction approval simulator built with **React**, **.NET Web API**, and **MSSQL** as part of the Shva Full-stack Developer Interview Task.
+A full-stack transaction approval simulator built with **React**, **ASP.NET Core Web API**, and **Microsoft SQL Server** as part of the **Shva Full-stack Developer Interview Task**.
 
-The application simulates transaction approvals based on local banking hours in different regions around the world.
+The application simulates financial transaction approvals based on banking hours in different regions around the world.
+
+---
+
+# Project Overview
+
+The system allows users to:
+
+* Select a region
+* Enter a transaction time
+* Simulate a transaction approval request
+* Determine whether the transaction is approved or rejected
+* Store transactions in MSSQL
+* Display approved transactions in a responsive carousel UI
+
+The approval decision is based on the local banking hours of the selected region.
 
 ---
 
@@ -10,34 +25,43 @@ The application simulates transaction approvals based on local banking hours in 
 
 ## Frontend
 
-* Modern React application
-* Fully responsive design
-* Figma-based UI implementation
+* React + Vite application
+* Responsive design (Desktop / Tablet / Mobile)
+* Figma-inspired UI implementation
+* Region selector with search support
 * Transaction simulation form
 * Approved transactions carousel
-* Loading and error states
+* Loading states
+* Empty states
+* Error handling
+* Localization support (English / Hebrew)
+* RTL / LTR layout support
 * Component-based architecture
 
 ## Backend
 
-* RESTful .NET Web API
-* Transaction approval business logic
+* RESTful ASP.NET Core Web API
+* Clean scalable architecture
+* Business logic for transaction approval
 * Time zone conversion by selected region
-* MSSQL database integration
-* Entity Framework Core
+* Entity Framework Core integration
+* MSSQL persistence
 
 ## Database
 
-* Stores all transactions
+* Stores all submitted transactions
 * Retrieves approved transactions only
+* SQL Server containerized using Docker
 
 ---
 
 # Business Logic
 
-A transaction is considered **Approved** only if the selected local time falls between:
+A transaction is considered **Approved** only if the submitted local time falls between:
 
+```txt id="xjfg1s"
 08:00 - 18:00
+```
 
 according to the selected region's local time zone.
 
@@ -48,7 +72,11 @@ Supported regions:
 * USA
 * Japan
 
-Otherwise, the transaction is marked as **Rejected**.
+Otherwise, the transaction is marked as:
+
+```txt id="ld0m91"
+Rejected
+```
 
 ---
 
@@ -58,7 +86,8 @@ Otherwise, the transaction is marked as **Rejected**.
 
 * React
 * Vite
-* CSS Modules / CSS
+* CSS
+* Responsive Design
 
 ## Backend
 
@@ -70,25 +99,142 @@ Otherwise, the transaction is marked as **Rejected**.
 
 * Microsoft SQL Server
 
+## DevOps
+
+* Docker
+* Docker Compose
+
 ---
 
 # Project Structure
 
-```txt
+```txt id="zjlwmk"
 Shva.TransactionSimulator/
 │
 ├── Shva.TransactionSimulator.Api
 │
 ├── shva-transaction-simulator-client
 │
+├── docker-compose.yml
+│
 └── README.md
 ```
 
 ---
 
-# Backend Setup
+# Running the Project with Docker
 
-## 1. Open the solution
+## Requirements
+
+Make sure the following are installed:
+
+* Docker Desktop
+* .NET SDK
+* Node.js
+
+---
+
+## Run the entire application
+
+From the root folder run:
+
+```bash id="6hpf8m"
+docker compose up --build
+```
+
+This command starts:
+
+* SQL Server
+* Backend API
+* Frontend client
+
+---
+
+## Database Initialization Issue (Docker)
+
+If the application starts successfully but API requests fail with a database connection error such as:
+
+```txt id="h7n2pk"
+Error Number:4060
+Cannot open database
+```
+
+this means that SQL Server is running, but the database or tables were not created yet.
+
+In this case, run the Entity Framework migration manually inside the backend container.
+
+---
+
+### Step 1 — Open the backend container
+
+```bash id="g5w8xa"
+docker exec -it shva-api bash
+```
+
+---
+
+### Step 2 — Run Entity Framework migration
+
+Inside the container run:
+
+```bash id="n3v1ql"
+dotnet ef database update
+```
+
+If `dotnet ef` is not installed, run:
+
+```bash id="p2m7rk"
+dotnet tool install --global dotnet-ef
+```
+
+Run the migration again:
+
+```bash id="w8j4ds"
+dotnet ef database update
+```
+
+---
+
+### Step 3 — Exit the container
+
+```bash id="u1q7zn"
+exit
+```
+
+---
+
+### Step 4 — Restart the backend container
+
+From the project root folder run:
+
+```bash id="m4r8kp"
+docker restart shva-api
+```
+
+After restarting, the API and database should work correctly.
+
+
+# Application URLs
+
+## Frontend
+
+```txt id="dy5z7s"
+http://localhost:5173
+```
+
+## Swagger API
+
+```txt id="c7q9mf"
+http://localhost:8080/swagger
+```
+
+---
+
+# Running the Project Locally (Without Docker)
+
+## Backend Setup
+
+### 1. Open the solution
 
 Open:
 
@@ -100,17 +246,15 @@ using Visual Studio.
 
 ---
 
-## 2. Configure SQL Server
+### 2. Configure SQL Server Connection
 
-Make sure SQL Server is installed and running.
-
-Update the connection string in:
+Inside:
 
 ```txt
-appsettings.json
+Shva.TransactionSimulator.Api/appsettings.json
 ```
 
-Example:
+set the connection string to:
 
 ```json
 "ConnectionStrings": {
@@ -120,29 +264,35 @@ Example:
 
 ---
 
-## 3. Run Entity Framework Migration
+### 3. Install Entity Framework Tool
 
-Open Package Manager Console:
-
-```powershell
-Update-Database
+```bash
+dotnet tool install --global dotnet-ef
 ```
-
-This will create the database and tables automatically.
 
 ---
 
-## 4. Run the Backend
+### 4. Run Database Migration
 
-Press:
+Navigate to:
 
-```txt
-F5
+```bash
+cd Shva.TransactionSimulator.Api
 ```
 
-or run:
+Run:
 
-```powershell
+```bash
+dotnet ef database update
+```
+
+This command automatically creates the database and tables.
+
+---
+
+### 5. Run the Backend API
+
+```bash
 dotnet run
 ```
 
@@ -151,36 +301,52 @@ Swagger will open automatically.
 Example:
 
 ```txt
-https://localhost:xxxx/swagger
+https://localhost:44396/swagger
 ```
 
 ---
 
 # Frontend Setup
 
-## 1. Navigate to the client folder
+### 1. Navigate to the client folder
 
-```powershell
+```bash
 cd shva-transaction-simulator-client
 ```
 
 ---
 
-## 2. Install dependencies
+### 2. Configure API URL
 
-```powershell
+Inside:
+
+```txt
+src/services/transactionService.js
+```
+
+set:
+
+```javascript
+const API_URL = 'https://localhost:44396/api/Transactions';
+```
+
+---
+
+### 3. Install dependencies
+
+```bash
 npm install
 ```
 
 ---
 
-## 3. Run the frontend
+### 4. Run the frontend
 
-```powershell
+```bash
 npm run dev
 ```
 
-The application will run on:
+Frontend URL:
 
 ```txt
 http://localhost:5173
@@ -190,26 +356,26 @@ http://localhost:5173
 
 # API Endpoints
 
-## Simulate Transaction
+# Simulate Transaction
 
-### POST
+## POST
 
-```txt
+```txt id="h5r4kp"
 /api/transactions/simulate
 ```
 
-### Request Body
+## Request Body
 
-```json
+```json id="ykq0uz"
 {
   "region": "Japan",
   "submittedUtc": "2026-06-25T10:00:00Z"
 }
 ```
 
-### Response
+## Response
 
-```json
+```json id="2m0z6t"
 {
   "status": "Approved",
   "localTime": "2026-06-25T13:00:00"
@@ -218,11 +384,11 @@ http://localhost:5173
 
 ---
 
-## Get Approved Transactions
+# Get Approved Transactions
 
-### GET
+## GET
 
-```txt
+```txt id="mqwhpv"
 /api/transactions/approved
 ```
 
@@ -232,7 +398,7 @@ Returns all approved transactions from the database.
 
 # Responsive Design
 
-The application is fully responsive and supports:
+The application is fully responsive and optimized for:
 
 * Desktop
 * Tablet
@@ -240,15 +406,38 @@ The application is fully responsive and supports:
 
 ---
 
+# Localization
+
+The application supports:
+
+* English
+* Hebrew
+* RTL / LTR layout switching
+
+---
+
+# Docker Architecture
+
+The project uses Docker Compose to run:
+
+* Frontend container
+* Backend container
+* SQL Server container
+
+All services communicate together through Docker networking.
+
+---
+
 # Future Improvements
 
 Possible future enhancements:
 
-* Localization (ENG / Hebrew)
-* RTL support
-* Authentication
-* Docker Compose setup
-* Advanced transaction filtering
+* Authentication (Login / Signup)
+* Advanced filtering
+* Pagination
+* Unit tests
+* Integration tests
+* Role management
 
 ---
 
