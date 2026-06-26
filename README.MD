@@ -150,45 +150,75 @@ This command starts:
 
 ---
 
-Database Initialization Issue (Docker)
+## Database Initialization Issue (Docker)
 
 If the application starts successfully but API requests fail with a database connection error such as:
 
+```txt id="h7n2pk"
 Error Number:4060
 Cannot open database
+```
 
 this means that SQL Server is running, but the database or tables were not created yet.
 
 In this case, run the Entity Framework migration manually inside the backend container.
 
-Step 1 — Open the backend container
+---
+
+### Step 1 — Open the backend container
+
+```bash id="g5w8xa"
 docker exec -it shva-api bash
-Step 2 — Run Entity Framework migration
+```
+
+---
+
+### Step 2 — Run Entity Framework migration
 
 Inside the container run:
 
+```bash id="n3v1ql"
 dotnet ef database update
+```
 
-If dotnet ef is not installed, run:
+If `dotnet ef` is not installed, run:
 
+```bash id="p2m7rk"
 dotnet tool install --global dotnet-ef
+```
 
 Then add the tool to PATH:
 
+```bash id="c6x9ty"
 export PATH="$PATH:/root/.dotnet/tools"
+```
 
 Run the migration again:
 
+```bash id="w8j4ds"
 dotnet ef database update
-Step 3 — Exit the container
+```
+
+---
+
+### Step 3 — Exit the container
+
+```bash id="u1q7zn"
 exit
-Step 4 — Restart the backend container
+```
+
+---
+
+### Step 4 — Restart the backend container
 
 From the project root folder run:
 
+```bash id="m4r8kp"
 docker restart shva-api
+```
 
 After restarting, the API and database should work correctly.
+
 
 # Application URLs
 
