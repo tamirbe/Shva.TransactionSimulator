@@ -1,7 +1,8 @@
 .header {
     min-height: 80px;
-    background: white;
-    border-bottom: 1px solid #e5e5e5;
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-main);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -11,7 +12,6 @@
 
 .app.rtl .header {
     direction: rtl;
-
 }
 
 .logo-placeholder {
@@ -25,6 +25,37 @@
     object-fit: contain;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.theme-toggle,
+.language-buttons button {
+    border: 1px solid var(--border-color);
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--surface-color-muted);
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle:hover,
+.language-buttons button:hover {
+    transform: translateY(-1px);
+}
+
+.active {
+    color: var(--accent-strong);
+    box-shadow: inset 0 0 0 1px var(--accent-color);
+    background: var(--accent-soft) !important;
+}
+
 .language-buttons {
     display: flex;
     gap: 10px;
@@ -32,32 +63,9 @@
     justify-content: flex-end;
 }
 
-.language-buttons button {
-    border: none;
-    padding: 10px 18px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-weight: 600;
-    color: #4b5563;
-    background: #f5f5f5;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.language-buttons button:hover {
-    transform: translateY(-1px);
-}
-
-.active {
-    color: #4b2e83;
-    box-shadow: inset 0 0 0 1px #814fff;
-    background: linear-gradient(180deg, #f5f5f5 0%, #e9ddff 100%) !important;
-}
-
 @media (max-width: 640px) {
     .header {
         padding: 16px 20px;
-        /* flex-wrap: wrap; */
-        /* justify-content: center; */
     }
 
     .logo {
@@ -65,7 +73,8 @@
         height: auto;
     }
 
-    .language-buttons {
+    .header-actions {
         width: 100%;
+        justify-content: flex-start;
     }
 }

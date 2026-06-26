@@ -21,6 +21,14 @@ function App() {
   const [hour, setHour] = useState('20');
   const [minute, setMinute] = useState('00');
   const [language, setLanguage] = useState('en');
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === 'undefined') return 'light';
+
+    const storedTheme = window.localStorage.getItem('theme');
+    if (storedTheme) return storedTheme;
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
 
   async function loadApprovedTransactions() {
     try {
@@ -34,6 +42,11 @@ function App() {
   useEffect(() => {
     loadApprovedTransactions();
   }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   async function handleSimulation() {
     try {
@@ -60,8 +73,8 @@ function App() {
   const isHebrew = language === 'he';
 
   return (
-    <div className={`app ${isHebrew ? 'rtl' : ''}`}>
-      <Header language={language} setLanguage={setLanguage} />
+    <div className={`app ${isHebrew ? 'rtl' : ''} ${theme === 'dark' ? 'dark' : ''}`}>
+      <Header language={language} setLanguage={setLanguage} theme={theme} setTheme={setTheme} />
 
       <main className="main-container">
         <section className="hero-section">

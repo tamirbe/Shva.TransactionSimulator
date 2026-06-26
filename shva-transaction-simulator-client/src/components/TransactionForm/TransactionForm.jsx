@@ -15,24 +15,37 @@ function TransactionForm({
     const [search, setSearch] = useState('');
     const [isOpen, setIsOpen] = useState(false);
 
-    const regions = [
-        'Israel',
-        'France',
-        'USA',
-        'Japan',
-        'Cyprus',
-        'Italy',
-    ];
+    const isHebrew = language === 'he';
+
+    const regions = isHebrew
+        ? [
+            { value: 'Israel', label: 'ישראל' },
+            { value: 'France', label: 'צרפת' },
+            { value: 'USA', label: 'ארצות הברית' },
+            { value: 'Japan', label: 'יפן' },
+            { value: 'Cyprus', label: 'קפריסין' },
+            { value: 'Italy', label: 'איטליה' },
+        ]
+        : [
+            { value: 'Israel', label: 'Israel' },
+            { value: 'France', label: 'France' },
+            { value: 'USA', label: 'USA' },
+            { value: 'Japan', label: 'Japan' },
+            { value: 'Cyprus', label: 'Cyprus' },
+            { value: 'Italy', label: 'Italy' },
+        ];
 
     const filteredRegions = useMemo(() => {
-        return regions.filter((region) =>
-            region.toLowerCase().includes(search.toLowerCase()),
-        );
-    }, [search]);
+        return regions.filter(({ value, label }) => {
+            const query = search.toLowerCase();
+            return value.toLowerCase().includes(query) || label.toLowerCase().includes(query);
+        });
+    }, [regions, search]);
 
-    function selectRegion(region) {
-        setSelectedRegion(region);
-        setSearch(region);
+    function selectRegion(regionValue) {
+        const selectedRegionItem = regions.find(({ value }) => value === regionValue);
+        setSelectedRegion(regionValue);
+        setSearch(selectedRegionItem?.label || regionValue);
         setIsOpen(false);
     }
 
@@ -51,8 +64,6 @@ function TransactionForm({
 
         setMinute(value);
     }
-
-    const isHebrew = language === 'he';
 
     return (
         <div className="transaction-form-wrapper">
@@ -85,19 +96,19 @@ function TransactionForm({
 
                 {isOpen && (
                     <div className="dropdown">
-                        {filteredRegions.map((region) => (
+                        {filteredRegions.map(({ value, label }) => (
                             <div
-                                key={region}
+                                key={value}
                                 className="dropdown-item"
-                                onClick={() => selectRegion(region)}
+                                onClick={() => selectRegion(value)}
                             >
-                                {region}
+                                {label}
                             </div>
                         ))}
 
                         {filteredRegions.length === 0 && (
                             <div className="dropdown-empty">
-                                No results
+                                {isHebrew ? 'אין תוצאות' : 'No results'}
                             </div>
                         )}
                     </div>

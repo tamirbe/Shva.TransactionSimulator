@@ -1,3 +1,45 @@
+:root {
+    --bg-color: #fcfbff;
+    --surface-color: #ffffff;
+    --surface-color-alt: #f7f2ff;
+    --surface-color-muted: #f5f5f5;
+    --surface-color-strong: #ece7f6;
+    --text-main: #1f1f1f;
+    --text-muted: #5a4a6b;
+    --text-secondary: #4b5563;
+    --border-color: #e5e5e5;
+    --border-color-strong: #c6c6c6;
+    --accent-color: #6b46c1;
+    --accent-strong: #4b2e83;
+    --accent-soft: rgba(107, 70, 193, 0.12);
+    --shadow-color: rgba(15, 23, 42, 0.08);
+    --shadow-color-strong: rgba(76, 46, 120, 0.08);
+    --input-bg: #ffffff;
+    --card-bg: #ffffff;
+    --hero-badge-bg: rgba(240, 240, 240, 0.8);
+}
+
+.app.dark {
+    --bg-color: #0f172a;
+    --surface-color: #111827;
+    --surface-color-alt: #1f2937;
+    --surface-color-muted: #1e293b;
+    --surface-color-strong: #273449;
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --border-color-strong: #475569;
+    --accent-color: #a78bfa;
+    --accent-strong: #c4b5fd;
+    --accent-soft: rgba(167, 139, 250, 0.18);
+    --shadow-color: rgba(2, 6, 23, 0.45);
+    --shadow-color-strong: rgba(2, 6, 23, 0.6);
+    --input-bg: #1f2937;
+    --card-bg: #111827;
+    --hero-badge-bg: rgba(30, 41, 59, 0.8);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,12 +48,16 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    color: #1f1f1f;
-    background: #fcfbff;
+    color: var(--text-main);
+    background: var(--bg-color);
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .app {
     min-height: 100vh;
+    background: var(--bg-color);
+    color: var(--text-main);
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .app.rtl {

@@ -2,15 +2,15 @@
     margin-top: 20px;
     padding: 20px 24px;
     border-radius: 20px;
-    background: #f7f2ff;
-    border: 1px solid #e7dcfb;
-    box-shadow: 0 10px 24px rgba(82, 58, 132, 0.08);
+    background: var(--surface-color-alt);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 24px var(--shadow-color-strong);
     overflow-wrap: anywhere;
 }
 
 .transaction-result-card h3 {
     font-size: 1.125rem;
-    color: #46325f;
+    color: var(--text-main);
     margin-bottom: 10px;
     font-weight: 700;
 }
@@ -20,7 +20,7 @@
     align-items: center;
     padding: 6px 12px;
     border-radius: 999px;
-    background: #6b46c1;
+    background: var(--accent-color);
     color: white;
     font-weight: 700;
     margin-left: 8px;
@@ -29,7 +29,7 @@
 
 .transaction-result-card p {
     font-size: 0.95rem;
-    color: #5a4a6b;
+    color: var(--text-muted);
     margin: 0;
 }
 
