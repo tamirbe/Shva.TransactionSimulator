@@ -166,13 +166,15 @@ http://localhost:8080/swagger
 
 ---
 
-# Backend Setup (Without Docker)
+# Running the Project Locally (Without Docker)
 
-## 1. Open the solution
+## Backend Setup
+
+### 1. Open the solution
 
 Open:
 
-```txt id="jtx0mf"
+```txt
 Shva.TransactionSimulator.sln
 ```
 
@@ -180,79 +182,109 @@ using Visual Studio.
 
 ---
 
-## 2. Configure SQL Server
+### 2. Configure SQL Server Connection
 
-Update the connection string inside:
+Inside:
 
-```txt id="u6rpnm"
-appsettings.json
+```txt
+Shva.TransactionSimulator.Api/appsettings.json
 ```
 
-Example:
+set the connection string to:
 
-```json id="7zqg2u"
+```json
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost,1433;Database=ShvaTransactionSimulatorDb;User Id=sa;Password=YourStrong!Pass123;TrustServerCertificate=True;"
+  "DefaultConnection": "Server=localhost;Database=ShvaTransactionSimulatorDb;Trusted_Connection=True;TrustServerCertificate=True;"
 }
 ```
 
 ---
 
-## 3. Run Entity Framework Migration
+### 3. Install Entity Framework Tool
 
-Install Entity Framework tool if needed:
-
-```bash id="4n6m3x"
+```bash
 dotnet tool install --global dotnet-ef
 ```
 
-Run migration:
+---
 
-```bash id="4sqj2r"
+### 4. Run Database Migration
+
+Navigate to:
+
+```bash
+cd Shva.TransactionSimulator.Api
+```
+
+Run:
+
+```bash
 dotnet ef database update
 ```
 
-This will automatically create the database and tables.
+This command automatically creates the database and tables.
 
 ---
 
-## 4. Run the Backend
+### 5. Run the Backend API
 
-```bash id="q3zjlwm"
+```bash
 dotnet run
 ```
 
 Swagger will open automatically.
 
+Example:
+
+```txt
+https://localhost:44396/swagger
+```
+
 ---
 
-# Frontend Setup (Without Docker)
+# Frontend Setup
 
-## 1. Navigate to the client folder
+### 1. Navigate to the client folder
 
-```bash id="5k4m7p"
+```bash
 cd shva-transaction-simulator-client
 ```
 
 ---
 
-## 2. Install dependencies
+### 2. Configure API URL
 
-```bash id="7c5xna"
+Inside:
+
+```txt
+src/services/transactionService.js
+```
+
+set:
+
+```javascript
+const API_URL = 'https://localhost:44396/api/Transactions';
+```
+
+---
+
+### 3. Install dependencies
+
+```bash
 npm install
 ```
 
 ---
 
-## 3. Run the frontend
+### 4. Run the frontend
 
-```bash id="v3r8fa"
+```bash
 npm run dev
 ```
 
-The application will run on:
+Frontend URL:
 
-```txt id="1dx8kv"
+```txt
 http://localhost:5173
 ```
 
