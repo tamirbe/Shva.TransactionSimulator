@@ -444,7 +444,7 @@ Possible future enhancements:
 
 # Demo Video
 
-A short demo video is included with the submission.
+https://www.loom.com/share/8666a53ac5a34849931823ef79e591b7
 
 ---
 
