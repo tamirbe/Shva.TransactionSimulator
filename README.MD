@@ -187,12 +187,6 @@ If `dotnet ef` is not installed, run:
 dotnet tool install --global dotnet-ef
 ```
 
-Then add the tool to PATH:
-
-```bash id="c6x9ty"
-export PATH="$PATH:/root/.dotnet/tools"
-```
-
 Run the migration again:
 
 ```bash id="w8j4ds"
